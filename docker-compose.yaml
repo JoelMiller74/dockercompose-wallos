@@ -1,0 +1,18 @@
+services:
+  wallos:
+    container_name: Wallos
+    image: bellamy/wallos:latest
+    healthcheck:
+     test: curl -f http://localhost:80/ || exit 1
+    mem_limit: 4g
+    cpu_shares: 768
+    security_opt:
+      - no-new-privileges:true
+    restart: on-failure:5
+    ports:
+      - 8353:80/tcp
+    volumes:
+      - /volume1/docker/wallos/images:/var/www/html/images/uploads/logos:rw
+      - /volume1/docker/wallos/db:/var/www/html/db:rw
+    environment:
+      TZ: America/Chicago
